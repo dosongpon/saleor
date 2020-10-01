@@ -180,6 +180,7 @@ def generate_product_payload(product: "Product"):
         "attributes",
         "updated_at",
         "charge_taxes",
+        "labor",
         "weight",
         "publication_date",
         "is_published",

@@ -51,7 +51,6 @@ from ..utils import (
     validate_attribute_input_for_variant,
 )
 
-
 class CategoryInput(graphene.InputObjectType):
     description = graphene.String(description="Category description (HTML/text).")
     description_json = graphene.JSONString(description="Category description (JSON).")
@@ -517,6 +516,7 @@ class ProductInput(graphene.InputObjectType):
     name = graphene.String(description="Product name.")
     slug = graphene.String(description="Product slug.")
     base_price = Decimal(description="Product price.")
+    labor = Decimal(description="Labor price.")
     tax_code = graphene.String(description="Tax rate for enabled tax gateway.")
     seo = SeoInput(description="Search engine optimization fields.")
     weight = WeightScalar(description="Weight of the Product.", required=False)
@@ -831,6 +831,14 @@ class ProductCreate(ModelMutation):
         except ValidationError as error:
             error.code = ProductErrorCode.REQUIRED.value
             raise ValidationError({"slug": error})
+        # !SGB set labor
+        # ! start
+        labor = data.get('labor', 0)
+        print('input')
+        pp(data)
+        if labor:
+            cleaned_input["labor_amount"] = labor
+        # ! end
         # Try to get price from "basePrice" or "price" field. Once "price" is removed
         # from the schema, only "basePrice" should be used here.
         price = data.get("base_price", data.get("price"))

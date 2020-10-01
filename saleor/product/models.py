@@ -277,6 +277,14 @@ class Product(SeoModel, ModelWithMetadata, PublishableModel):
         max_digits=settings.DEFAULT_MAX_DIGITS,
         decimal_places=settings.DEFAULT_DECIMAL_PLACES,
     )
+    #! SGB
+    #! start
+    labor_amount = models.DecimalField(
+        max_digits=settings.DEFAULT_MAX_DIGITS,
+        decimal_places=settings.DEFAULT_DECIMAL_PLACES,
+    )
+    labor = MoneyField(amount_field="labor_amount", currency_field="currency")
+    #! end
     price = MoneyField(amount_field="price_amount", currency_field="currency")
 
     minimal_variant_price_amount = models.DecimalField(

@@ -428,6 +428,7 @@ class Product(CountableDjangoObjectType):
         description="Whether the product is in stock and visible or not."
     )
     base_price = graphene.Field(Money, description="The product's default base price.")
+    labor = graphene.Field(Money, description="Labor price for this product")
     minimal_variant_price = graphene.Field(
         Money, description="The price of the cheapest variant (including discounts)."
     )
@@ -551,6 +552,10 @@ class Product(CountableDjangoObjectType):
     @permission_required(ProductPermissions.MANAGE_PRODUCTS)
     def resolve_base_price(root: models.Product, _info):
         return root.price
+
+    @staticmethod
+    def resolve_labor(root: models.Product, _info):
+        return root.labor
 
     @staticmethod
     def resolve_price(root: models.Product, info):

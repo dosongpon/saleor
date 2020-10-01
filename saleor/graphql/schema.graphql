@@ -3320,6 +3320,7 @@ type Product implements Node & ObjectWithMetadata {
   pricing: ProductPricingInfo
   isAvailable: Boolean
   basePrice: Money
+  labor: Money
   minimalVariantPrice: Money
   taxType: TaxType
   attributes: [SelectedAttribute!]!
@@ -3392,6 +3393,7 @@ input ProductCreateInput {
   name: String
   slug: String
   basePrice: Decimal
+  labor: Decimal
   taxCode: String
   seo: SeoInput
   weight: WeightScalar
@@ -3506,6 +3508,7 @@ input ProductInput {
   name: String
   slug: String
   basePrice: Decimal
+  labor: Decimal
   taxCode: String
   seo: SeoInput
   weight: WeightScalar
